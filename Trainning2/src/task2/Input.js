@@ -9,34 +9,48 @@ export default function Input() {
 
   const [input, setInput] = useState(true);
 
+  // đếm số lần setTimeout được gọi
   const [track, setTrack] = useState(0);
+
+  // lưu state cho setTimeout
+  const [time, setTime] = useState(null);
 
   useEffect(() => {
     if (!pause) {
+      // gọi setTimeOut
       let id = setTimeout(() => {
         console.log("tao settimeout ", track);
         setPlay(play - 1);
+        if (play === 1) {
+          console.log("hello");
+        }
       }, 1000);
 
+      // lưu vào state
+      setTime(id);
+
+      // đếm số lần setTimeOut gọi
       setTrack(track + 1);
 
       return () => {
-        // console.log(play);
         console.log("track", track);
         console.log(count);
 
+        // nếu số lần settimeout gọi === số giây nhập vào
         if (track === Math.floor(count)) {
           console.log("ham da clear");
+          // dừng setTimeout
           clearTimeout(id);
         }
-
-        if (play <= 1) {
+        console.log("play", play);
+        if (play === 1) {
           setInput(true);
           setPause(true);
         }
       };
     }
   }, [pause, play]);
+
   const validation = () => {
     if (!isNaN(count)) {
       return true;
@@ -61,7 +75,6 @@ export default function Input() {
       return true;
     }
   };
-  console.log(validation());
 
   return (
     <Fragment>
@@ -94,7 +107,8 @@ export default function Input() {
                   setInput(false);
                 }
                 setPause(!pause);
-                console.log(pause);
+                console.log("===============================");
+                clearTimeout(time);
               }}
               className="btn btn-primary"
             >
