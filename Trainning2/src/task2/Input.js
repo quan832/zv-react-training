@@ -1,7 +1,6 @@
-import React, { Fragment, useEffect, useRef, useState } from "react";
+import React, { Fragment, useEffect, useMemo, useRef, useState } from "react";
 
 export default function Input() {
-  
   const [count, setCount] = useState(null);
 
   const [play, setPlay] = useState(false);
@@ -10,15 +9,27 @@ export default function Input() {
 
   const [input, setInput] = useState(true);
 
+  const [track, setTrack] = useState(0);
+
   useEffect(() => {
-    if (!pause && play > 0) {
-      const id = setInterval(() => {
+    if (!pause) {
+      let id = setTimeout(() => {
+        console.log("tao settimeout ", track);
         setPlay(play - 1);
       }, 1000);
 
+      setTrack(track + 1);
+
       return () => {
-        console.log(play);
-        clearInterval(id);
+        // console.log(play);
+        console.log("track", track);
+        console.log(count);
+
+        if (track === Math.floor(count)) {
+          console.log("ham da clear");
+          clearTimeout(id);
+        }
+
         if (play <= 1) {
           setInput(true);
           setPause(true);
@@ -77,6 +88,7 @@ export default function Input() {
               onClick={() => {
                 if (!play) {
                   setPlay(count);
+                  setTrack(0);
                 }
                 if (input) {
                   setInput(false);
