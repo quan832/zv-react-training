@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect, useRef, useState } from "react";
 
 export default function Input() {
-  
   const [count, setCount] = useState(null);
 
   const [play, setPlay] = useState(false);
@@ -11,21 +10,29 @@ export default function Input() {
   const [input, setInput] = useState(true);
 
   useEffect(() => {
-    if (!pause && play > 0) {
+    console.log("use Effect===================");
+    // == ? ==
+    if (play === 0) {
+      setInput(true);
+      setPause(true);
+    }
+  }, [play]);
+
+  useEffect(() => {
+    if (!pause) {
       const id = setInterval(() => {
+        console.log("effect cua interval===================");
         setPlay(play - 1);
       }, 1000);
 
       return () => {
-        console.log(play);
-        clearInterval(id);
-        if (play <= 1) {
-          setInput(true);
-          setPause(true);
-        }
+        console.log("clear interval");
+        window.clearInterval(id);
       };
     }
-  }, [pause, play]);
+    return undefined;
+  });
+
   const validation = () => {
     if (!isNaN(count)) {
       return true;
@@ -50,7 +57,6 @@ export default function Input() {
       return true;
     }
   };
-  console.log(validation());
 
   return (
     <Fragment>
