@@ -22,7 +22,7 @@ export default function Input() {
     if (!pause) {
       const id = setInterval(() => {
         console.log("effect cua interval===================");
-        setPlay(play - 1);
+        setPlay(play => play - 1);
       }, 1000);
 
       return () => {
@@ -31,7 +31,7 @@ export default function Input() {
       };
     }
     return undefined;
-  });
+  },[pause]);
 
   const validation = () => {
     if (!isNaN(count)) {
