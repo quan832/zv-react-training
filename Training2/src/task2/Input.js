@@ -16,6 +16,7 @@ export default function Input() {
   const [time, setTime] = useState(null);
 
   useEffect(() => {
+<<<<<<< HEAD:Trainning2/src/task2/Input.js
     if (!pause) {
       // gọi setTimeOut
       let id = setTimeout(() => {
@@ -24,6 +25,21 @@ export default function Input() {
         if (play === 1) {
           console.log("hello");
         }
+=======
+    console.log("use Effect===================");
+    // == ? ==
+    if (play === 0) {
+      setInput(true);
+      setPause(true);
+    }
+  }, [play]);
+
+  useEffect(() => {
+    if (!pause) {
+      const id = setInterval(() => {
+        console.log("effect cua interval===================");
+        setPlay(play => play - 1);
+>>>>>>> 362a3814c17850e34771776ee85794e871fe80d3:Training2/src/task2/Input.js
       }, 1000);
 
       // lưu vào state
@@ -33,6 +49,7 @@ export default function Input() {
       setTrack(track + 1);
 
       return () => {
+<<<<<<< HEAD:Trainning2/src/task2/Input.js
         console.log("track", track);
         console.log(count);
 
@@ -50,6 +67,14 @@ export default function Input() {
       };
     }
   }, [pause, play]);
+=======
+        console.log("clear interval");
+        window.clearInterval(id);
+      };
+    }
+    return undefined;
+  },[pause]);
+>>>>>>> 362a3814c17850e34771776ee85794e871fe80d3:Training2/src/task2/Input.js
 
   const validation = () => {
     if (!isNaN(count)) {
