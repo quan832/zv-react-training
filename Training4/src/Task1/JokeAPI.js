@@ -26,8 +26,7 @@ export default function JokeAPI() {
 
   const [showJoke, setShowJoke] = useState(false);
 
-  const debounceVal = showJoke;
-  
+  const debounceVal = useDebounce(showJoke);
   //   call api
   //   cors problem
   const headers = {

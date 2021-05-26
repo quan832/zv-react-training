@@ -32,8 +32,6 @@ export default function CountriesAPI() {
 
   const debouncedVal = useDebounce(searchTerm);
 
-  console.log(debouncedVal);
-
   useEffect(async () => {
     await axios
 
