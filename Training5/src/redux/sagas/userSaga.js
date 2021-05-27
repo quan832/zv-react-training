@@ -17,9 +17,6 @@ export function* LoginUserAPI() {
   const action1 = yield take("LOGIN_USER");
   console.log("loading login", action1.values.password);
 
-  const postValues = JSON.stringify(action1.values);
-  console.log(postValues);
-
   let data = null;
   yield call(() => {
     return Axios.post("http://localhost:9000/login", {
@@ -46,28 +43,16 @@ export function* GetInfoAPI() {
   // chỗ này có nên lấy api từ local hay redux?
   let data = null;
 
-  let getValues = {
-    authorization: `Bearer ${action1.values}`,
-  };
-
-  data = JSON.stringify(getValues);
-
-  console.log(getValues);
   console.log(action1.values);
-  Axios.get(
-    "http://localhost:9000/api/users/my",
-    {
-      authorization: `Bearer ${action1.values}`,
+
+  Axios.get("http://localhost:9000/api/users/my", {
+    headers: {
+      Authorization: `Bearer ${action1.values}`,
     },
-    {
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${action1.values}`,
-      },
-    }
-  )
+  })
     .then((result) => {
+      console.log("result data")
       console.log(result.data);
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.log(err.response));
 }
