@@ -48,6 +48,7 @@ export default function CountriesAPI() {
     if (searchTerm === "") {
       setSearch(countries);
     } else if (debouncedVal) {
+      console.log("hello")
       const searchResult = countries.filter((item) => {
         return item.name.toLowerCase().includes(searchTerm.toLowerCase());
       });

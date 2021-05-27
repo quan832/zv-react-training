@@ -3,7 +3,7 @@ import axios from "axios";
 
 // optimize time
 function useDebounce(text, delay) {
-  delay = delay || 500;
+  delay = delay || 1000;
 
   const [debounced, setDebounced] = useState(text);
 
@@ -27,6 +27,7 @@ export default function JokeAPI() {
   const [showJoke, setShowJoke] = useState(false);
 
   const debounceVal = useDebounce(showJoke);
+  console.log(debounceVal)
   //   call api
   //   cors problem
   const headers = {
