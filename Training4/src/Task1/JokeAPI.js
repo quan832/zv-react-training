@@ -1,12 +1,40 @@
 import React, { Fragment, useEffect, useState } from "react";
 import axios from "axios";
 
+<<<<<<< HEAD
 import { debounce, throttle } from "lodash";
+=======
+// optimize time
+function useDebounce(text, delay) {
+  delay = delay || 1000;
+
+  const [debounced, setDebounced] = useState(text);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebounced(text);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [text, delay]);
+
+  return debounced;
+}
+>>>>>>> 6949b0caa4cfb04669c70b97f58fe779c771bffa
 
 export default function JokeAPI() {
   // state
   const [joke, setJoke] = useState([]);
 
+<<<<<<< HEAD
+=======
+  const [showJoke, setShowJoke] = useState(false);
+
+  const debounceVal = useDebounce(showJoke);
+  console.log(debounceVal)
+>>>>>>> 6949b0caa4cfb04669c70b97f58fe779c771bffa
   //   call api
   //   cors problem
   const headers = {
