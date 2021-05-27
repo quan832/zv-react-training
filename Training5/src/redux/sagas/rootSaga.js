@@ -3,5 +3,5 @@ import * as getAPI from "./userSaga";
 
 export default function* rootSaga() {
   //   yield all([getUserAPI]);
-  yield all([getAPI.getUserAPI(), getAPI.LoginUserAPI(), getAPI.GetInfoAPI()]);
+  yield all([getAPI.LoginUserAPI(), getAPI.GetInfoAPI(), getAPI.getUsersAPI()]);
 }

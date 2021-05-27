@@ -3,6 +3,8 @@ import storage from "redux-persist/lib/storage"; // defaults to localStorage for
 import { createStore, applyMiddleware, compose } from "redux";
 import createSagaMiddleware from "redux-saga";
 import reducer from "../reducers/userReducer";
+// Logger with default options
+import logger from "redux-logger";
 
 const persistConfig = {
   key: "root",
@@ -16,7 +18,7 @@ const sagaMiddleware = createSagaMiddleware();
 
 let store = createStore(
   persistedReducer,
-  composeEnhancers(applyMiddleware(sagaMiddleware))
+  composeEnhancers(applyMiddleware(logger, sagaMiddleware))
 );
 let persistor = persistStore(store);
 

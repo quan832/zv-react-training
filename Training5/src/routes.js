@@ -1,3 +1,4 @@
+import Detail from "./Pages/Detail/Detail";
 import Home from "./Pages/Home/Home";
 import Profile from "./Pages/Profile/Profile";
 const routesHome = [
@@ -13,6 +14,7 @@ const routesHome = [
   //   },
   { path: "/home", exact: true, component: Home },
   { path: "/profile", exact: true, component: Profile },
+  { path: "/user:id", exact: true, component: Detail },
 ];
 
 export { routesHome };

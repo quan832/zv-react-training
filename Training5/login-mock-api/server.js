@@ -36,7 +36,7 @@ const users = [
     email: "123",
     password: "123",
     id: "fb3111f1-ea6e-11e9-ba42-2368758065ba3454",
-    role: "Admin",
+    role: "User",
   },
 ];
 

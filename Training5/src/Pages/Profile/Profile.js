@@ -5,17 +5,26 @@ import Info from "../../Components/Info/Info";
 export default function Profile() {
   // dispatch
   const dispatch = useDispatch();
-
+  // get token
   const user = useSelector((state) => {
     return state.userToken;
   });
-  console.log(user);
+  // dispatch to get data
   useEffect(() => {
     dispatch({ type: "GET_INFO", values: user.token });
   }, []);
+
+  const profile = useSelector((state) => {
+    return state.myProfile;
+  });
+
+
+  
+  console.log("profile", profile);
+
   return (
     <div>
-      <Info />
+      <Info profile={profile} />
     </div>
   );
 }
