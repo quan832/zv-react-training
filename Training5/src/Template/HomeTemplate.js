@@ -17,6 +17,7 @@ export default function HomeTemplate(props) {
         return (
           <Fragment>
             {/* Header */}
+            <Header />
             <div className="wrapper">
               <Sidebar />
               <Component {...propsRoute} />

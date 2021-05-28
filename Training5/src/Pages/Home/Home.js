@@ -1,9 +1,15 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router";
-import { history } from "../../Components/App/App";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+
 import Footer from "../../Components/Footer/Footer";
 import Header from "../../Components/Header/Header";
+
+import Sidebar from "../../Components/Sidebar/Sidebar";
+import Detail from "../Detail/Detail";
+import Profile from "../Profile/Profile";
+import Users from "../Users/Users";
+import DashBoard from "./DashBoard";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -27,15 +33,25 @@ export default function Home() {
   }, []);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        width: "100%",
-      }}
-    >
-      <Header />
-      Hello
-    </div>
+    <Router>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          width: "100%",
+        }}
+      >
+        <Header />
+        <div className="wrapper">
+          <Sidebar />
+          <Switch>
+            <Route exact path="/home" component={DashBoard}></Route>
+            <Route exact path="/profile" component={Profile}></Route>
+            <Route exact path="/users" component={Users}></Route>
+            <Route exact path="/user:id" component={Detail}></Route>
+          </Switch>
+        </div>
+      </div>
+    </Router>
   );
 }

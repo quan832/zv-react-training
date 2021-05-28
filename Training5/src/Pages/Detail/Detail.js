@@ -13,7 +13,7 @@ export default function Detail(props) {
     let { id } = props.match.params;
     // action
     setDetail(
-      usersList.find((item) => {
+      usersList.find((item, index) => {
         return item.id === id;
       })
     );

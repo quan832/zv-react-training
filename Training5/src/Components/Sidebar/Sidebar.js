@@ -48,25 +48,27 @@ export default function Sidebar() {
             Myinfo
           </NavLink>
         </li>
-        <li
-          onClick={() => {
-            if (usersList === undefined) {
+        {usersList === undefined ? (
+          <li
+            onClick={() => {
               alert("not admin");
-            }
-          }}
-        >
-          <a
-            href="#pageSubmenu"
-            data-toggle="collapse"
-            aria-expanded="false"
-            class="dropdown-toggle"
+            }}
           >
-            User List
-          </a>
-          <ul class="collapse list-unstyled" id="pageSubmenu">
-            {renderUser()}
-          </ul>
-        </li>
+            <NavLink
+              href="#pageSubmenu"
+              data-toggle="collapse"
+              aria-expanded="false"
+              class="dropdown-toggle"
+              to="/users"
+            >
+              User List
+            </NavLink>
+          </li>
+        ) : (
+          <li>
+            <NavLink to="/users">User List</NavLink>
+          </li>
+        )}
       </ul>
     </nav>
   );

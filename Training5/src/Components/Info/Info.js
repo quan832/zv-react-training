@@ -25,7 +25,7 @@ export default function Info(props) {
               height={150}
               style={{
                 backgroundImage:
-                  'url("https://i1.wp.com/skdesu.com/wp-content/uploads/2020/05/saitama-ok.jpg?resize=800%2C451&ssl=1")',
+                  'url("https://randomuser.me/api/portraits/men/1.jpg")',
               }}
             />
           </div>
