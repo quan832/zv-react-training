@@ -3,7 +3,6 @@ import "./Info.css";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Info(props) {
-  
   const { profile } = props;
 
   return (
@@ -33,7 +32,7 @@ export default function Info(props) {
           <div className="insta-name">
             <h2>
               {profile ? profile.fullName : "admin"}
-              <span>{profile ? profile.email : "admin"}</span>
+              <span>{profile ? profile.role : "admin"}</span>
             </h2>
           </div>
           <div className="insta-followers-wrap">
@@ -52,7 +51,9 @@ export default function Info(props) {
             <a href="#">Follow</a>
           </div>
           <div className="insta-bio">
-            <p>{profile ? profile.role : "admin"}</p>
+            <p>
+              Email: <h5>{profile ? profile.email : "admin"}</h5>
+            </p>
           </div>
         </div>
       </div>
