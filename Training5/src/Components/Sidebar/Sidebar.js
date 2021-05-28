@@ -39,12 +39,28 @@ export default function Sidebar() {
     <nav id="sidebar" className="bg-dark border-primary">
       <ul className="list-unstyled components">
         <li className="active">
-          <NavLink exact to="/home">
+          <NavLink
+            exact
+            to="/home"
+            activeStyle={{
+              fontWeight: "bold",
+              color: "#FFB6C1",
+              background: " #ABCCE8",
+            }}
+          >
             Home
           </NavLink>
         </li>
         <li>
-          <NavLink exact to="/profile">
+          <NavLink
+            exact
+            to="/home/profile"
+            activeStyle={{
+              fontWeight: "bold",
+              color: "#FFB6C1",
+              background: " #ABCCE8",
+            }}
+          >
             Myinfo
           </NavLink>
         </li>
@@ -66,7 +82,16 @@ export default function Sidebar() {
           </li>
         ) : (
           <li>
-            <NavLink to="/users">User List</NavLink>
+            <NavLink
+              to="/home/users"
+              activeStyle={{
+                fontWeight: "bold",
+                color: "#FFB6C1",
+                background: " #ABCCE8",
+              }}
+            >
+              User List
+            </NavLink>
           </li>
         )}
       </ul>

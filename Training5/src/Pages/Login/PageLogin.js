@@ -5,7 +5,6 @@ import FormLogin from "../../Components/Login/FormLogin";
 import "./PageLogin.css";
 
 export default function PageLogin() {
- 
   const user = useSelector((state) => {
     return state.userToken;
   });
@@ -13,9 +12,9 @@ export default function PageLogin() {
   useEffect(() => {
     if (user !== null) {
       console.log("123");
-      window.location.replace("/");
+      window.location.replace("/home");
     }
-  }, []);
+  }, [user]);
   return (
     <main class=" align-items-center py-3 py-md-0 col-md-12 main-login">
       <div class="container">

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router";
 import Info from "../../Components/Info/Info";
 
 export default function Detail(props) {
@@ -8,9 +9,9 @@ export default function Detail(props) {
   const usersList = useSelector((state) => {
     return state.usersList;
   });
-
+  let { id } = useParams();
+  
   useEffect(() => {
-    let { id } = props.match.params;
     // action
     setDetail(
       usersList.find((item, index) => {

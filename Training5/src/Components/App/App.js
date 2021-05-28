@@ -4,7 +4,14 @@ import "./App.css";
 import { createBrowserHistory } from "history";
 
 //import route
-import { BrowserRouter, Route, Router, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  BrowserRouter,
+  Redirect,
+} from "react-router-dom";
 // Template
 import HomeTemplate from "../../Template/HomeTemplate";
 import PageLogin from "../../Pages/Login/PageLogin";
@@ -17,8 +24,11 @@ function App() {
   return (
     <div>
       <BrowserRouter history={history}>
-        <Route component={Home} exact path="/" />
-        <Route component={PageLogin} exact path="/login" />
+        <Switch>
+          <Route component={Home} path="/home"></Route>
+          <Route component={PageLogin} exact path="/login" />
+          <Redirect from="/" to="/home" />
+        </Switch>
       </BrowserRouter>
     </div>
   );

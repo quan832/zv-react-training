@@ -16,7 +16,7 @@ export function* LoginUserAPI() {
       // console.log(result.data);
       // console.log(result.data.error === "Incorrect password or email");
       if (result.data.error !== "Incorrect password or email") {
-        window.location.replace("/");
+        window.location.replace("/home");
       }
     });
   });
