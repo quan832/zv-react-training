@@ -1,7 +1,27 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import Info from "../../Components/Info/Info";
 
-export default function Detail() {
-  
+export default function Detail(props) {
+  const [detail, setDetail] = useState(null);
 
-  return <div></div>;
+  const usersList = useSelector((state) => {
+    return state.usersList;
+  });
+
+  useEffect(() => {
+    let { id } = props.match.params;
+    // action
+    setDetail(
+      usersList.find((item) => {
+        return item.id === id;
+      })
+    );
+  });
+
+  return (
+    <div className="container">
+      <Info profile={detail} />
+    </div>
+  );
 }

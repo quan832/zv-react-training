@@ -1,6 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { isArray } from "lodash";
+import axios from "axios";
 
 export default function Sidebar() {
   // dispatch
@@ -20,20 +22,21 @@ export default function Sidebar() {
     return state.usersList;
   });
 
-  console.log("==================", usersList);
-
+  console.log(usersList);
   const renderUser = () => {
-    return usersList?.users?.map((item, index) => {
+    return usersList?.map((item, index) => {
       return (
         <li>
-          <a href="#">{item.fullName}</a>
+          <NavLink exact to={`/user${item.id}`}>
+            {item.fullName}
+          </NavLink>
         </li>
       );
     });
   };
 
   return (
-    <nav id="sidebar" className="bg-dark">
+    <nav id="sidebar" className="bg-dark border-primary">
       <ul className="list-unstyled components">
         <li className="active">
           <NavLink exact to="/home">
@@ -45,7 +48,13 @@ export default function Sidebar() {
             Myinfo
           </NavLink>
         </li>
-        <li>
+        <li
+          onClick={() => {
+            if (usersList === undefined) {
+              alert("not admin");
+            }
+          }}
+        >
           <a
             href="#pageSubmenu"
             data-toggle="collapse"

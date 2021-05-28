@@ -5,12 +5,15 @@ import Info from "../../Components/Info/Info";
 export default function Profile() {
   // dispatch
   const dispatch = useDispatch();
+
   // get token
   const user = useSelector((state) => {
     return state.userToken;
   });
+
   // dispatch to get data
   useEffect(() => {
+    console.log("====render====");
     dispatch({ type: "GET_INFO", values: user.token });
   }, []);
 
@@ -18,12 +21,10 @@ export default function Profile() {
     return state.myProfile;
   });
 
-
-  
   console.log("profile", profile);
 
   return (
-    <div>
+    <div className="container">
       <Info profile={profile} />
     </div>
   );
