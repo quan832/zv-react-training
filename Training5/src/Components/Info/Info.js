@@ -51,8 +51,11 @@ export default function Info(props) {
             <a href="#">Follow</a>
           </div>
           <div className="insta-bio">
-            <p>
-              Email: <h5>{profile ? profile.email : "admin"}</h5>
+            <p className="text-center">
+              Email:{" "}
+              <span style={{ fontWeight: "500" }}>
+                {profile ? profile.email : "admin"}
+              </span>
             </p>
           </div>
         </div>

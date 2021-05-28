@@ -1,18 +1,27 @@
-import React from "react";
+import React, { Fragment } from "react";
+import { useSelector } from "react-redux";
 
 import { NavLink } from "react-router-dom";
 import "./Header.css";
 
 export default function Header() {
+  // get token
+  const user = useSelector((state) => {
+    return state.userToken;
+  });
+
   return (
     //navigation
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark" style={{marginBottom:"0!important"}}>
+    <nav
+      className="navbar navbar-expand-lg navbar-dark bg-dark"
+      style={{ marginBottom: "0!important" }}
+    >
       <div
         className="container wrap-header"
         style={{ marginLeft: "0px!important" }}
       >
         <NavLink exact className="navbar-brand" to="/home">
-       Login User
+          Login User
         </NavLink>
         <button
           className="navbar-toggler"
@@ -27,6 +36,19 @@ export default function Header() {
         </button>
         <div className="collapse navbar-collapse" id="navbarResponsive">
           <ul className="navbar-nav ml-auto">
+            {user !== "" ? (
+              <li
+                className="nav-item"
+                onClick={() => {
+                  window.localStorage.clear();
+                  window.location.replace("/login");
+                }}
+              >
+                <a className="nav-link">Log Out</a>
+              </li>
+            ) : (
+              <Fragment />
+            )}
             {/* <li className="nav-item ">
               <NavLink className="nav-link" to="/home">
                 Home
