@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useNetwork } from "../../module/useNetwork";
 
 export default function Connection() {
   // check connection
-  const result = useNetwork();
-  console.log(result);
+  const network = useNetwork();
+  console.log(network);
 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log("dispatch network");
+    dispatch({ type: "LISTEN_NETWORK", values: network });
+  }, [network]);
   return (
     <div
       className="wrapper"
@@ -18,7 +25,7 @@ export default function Connection() {
       }}
     >
       Connection Status: {"  "}
-      {result ? (
+      {network ? (
         <i class="fa fa-circle" style={{ color: "#3DED97" }}></i>
       ) : (
         <i class="fa fa-circle" style={{ color: "tomato" }}></i>
