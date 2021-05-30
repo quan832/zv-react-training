@@ -1,5 +1,4 @@
 export const initialState = {
-  id: "",
-  name: "",
-  status: "",
+  task: [],
+  channelStatus: "on",
 };

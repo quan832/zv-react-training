@@ -5,6 +5,7 @@ export default function Connection() {
   // check connection
   const result = useNetwork();
   console.log(result);
+
   return (
     <div
       className="wrapper"
@@ -17,7 +18,11 @@ export default function Connection() {
       }}
     >
       Connection Status: {"  "}
-      <i class="fa fa-circle" style={{ color: "#3DED97" }}></i>
+      {result ? (
+        <i class="fa fa-circle" style={{ color: "#3DED97" }}></i>
+      ) : (
+        <i class="fa fa-circle" style={{ color: "tomato" }}></i>
+      )}
     </div>
   );
 }

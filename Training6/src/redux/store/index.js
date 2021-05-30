@@ -9,7 +9,7 @@ import logger from "redux-logger";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: [""],
+  whitelist: ["task"],
 };
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -18,7 +18,7 @@ const sagaMiddleware = createSagaMiddleware();
 
 let store = createStore(
   persistedReducer,
-  composeEnhancers(applyMiddleware(sagaMiddleware))
+  composeEnhancers(applyMiddleware( sagaMiddleware))
 );
 let persistor = persistStore(store);
 

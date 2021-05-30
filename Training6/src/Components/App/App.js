@@ -1,5 +1,8 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import Connection from "../Connection/Connection";
+import Input from "../Input/Input";
+import List from "../List/List";
 
 export default function App() {
   return (
@@ -7,21 +10,8 @@ export default function App() {
       <Connection />
       <div className="wrapper">
         <header>Event Channel </header>
-        <div className="inputField">
-          <input type="text" placeholder="Add your new todo" />
-          <button>
-            <i className="fas fa-plus" />
-          </button>
-        </div>
-        <ul className="todoList">
-          {/* data are comes from local storage */}
-          <li>
-            123{" "}
-            <span class="icon">
-              <i class="fas fa-trash"></i>
-            </span>
-          </li>
-        </ul>
+        <Input />
+        <List />
       </div>
     </div>
   );
