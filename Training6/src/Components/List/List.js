@@ -15,14 +15,20 @@ export default function List() {
       return (
         <li key={index}>
           {item.task}{" "}
-          <span
-            class="icon"
-            onClick={() => {
-              dispatch({ type: "UPDATE_TASK", task: item });
-            }}
-          >
-            <i class="fas fa-trash"></i>
-          </span>
+          {item.status === "draft" ? (
+            <span
+              class="icon"
+              onClick={() => {
+                dispatch({ type: "UPDATE_TASK", task: item });
+              }}
+            >
+              <i class="fas fa-trash"></i>
+            </span>
+          ) : (
+            <span class="icon">
+              <i class="fa fa-wifi"></i>
+            </span>
+          )}
         </li>
       );
     });
