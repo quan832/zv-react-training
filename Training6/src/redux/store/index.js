@@ -18,7 +18,7 @@ const sagaMiddleware = createSagaMiddleware();
 
 let store = createStore(
   persistedReducer,
-  composeEnhancers(applyMiddleware( sagaMiddleware))
+  composeEnhancers(applyMiddleware(logger, sagaMiddleware))
 );
 let persistor = persistStore(store);
 

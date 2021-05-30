@@ -42,25 +42,27 @@ export function* UpdateTask() {
 }
 
 export function* ListenToUpdate() {
-  const action1 = yield take("LISTEN_NETWORK");
-  console.log(action1.values);
-
   // task
-  let state = yield select((state) => {
-    return state;
-  });
+  while (true) {
+    const action1 = yield take("LISTEN_NETWORK");
+    console.log(action1.values);
+    
+    let state = yield select((state) => {
+      return state;
+    });
 
-  console.log(state);
+    console.log(state);
 
-  const result = state.task.filter((item, index) => {
-    return item.status === "error";
-  });
+    const result = state.task.filter((item, index) => {
+      return item.status === "error";
+    });
 
-  console.log(result);
-  if (action1.values === true) {
-    yield put({ type: "UPDATE_TASK_NETWORK", data: result });
+    console.log(result);
+    if (action1.values === true) {
+      yield put({ type: "UPDATE_TASK_NETWORK", data: result });
 
-    return;
+      return;
+    }
   }
 }
 

@@ -5,12 +5,11 @@ import { useNetwork } from "../../module/useNetwork";
 export default function Connection() {
   // check connection
   const network = useNetwork();
-  console.log(network);
+
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("dispatch network");
     dispatch({ type: "LISTEN_NETWORK", values: network });
   }, [network]);
   return (
