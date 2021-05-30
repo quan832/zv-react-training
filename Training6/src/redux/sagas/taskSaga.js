@@ -1,3 +1,4 @@
+import { eventChannel } from "@redux-saga/core";
 import {
   take,
   all,
@@ -39,3 +40,33 @@ export function* UpdateTask() {
     yield put({ type: "UPDATE_TASK_SUCCESS", data: action1.task });
   }
 }
+
+export function* ListenToUpdate() {
+  const action1 = yield take("LISTEN_NETWORK");
+  console.log(action1.values);
+
+  // task
+  let state = yield select((state) => {
+    return state;
+  });
+
+  console.log(state);
+
+  const result = state.task.filter((item, index) => {
+    return item.status === "error";
+  });
+
+  console.log(result);
+  if (action1.values === true) {
+    yield put({ type: "UPDATE_TASK_NETWORK", data: result });
+
+    return;
+  }
+}
+
+// function eventChannelNetwork(network) {
+//   return eventChannel((emitter) => {
+//     emitter(network);
+//     return () => {};
+//   });
+// }

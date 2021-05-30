@@ -22,6 +22,14 @@ export default function (state = initialState, action) {
         ...state,
         channelStatus: action.values,
       };
+    case "UPDATE_TASK_NETWORK":
+      console.log("update_task", action.data);
+      return {
+        ...state,
+        task: state.task.filter((item) => {
+          return item.status !== "error";
+        }),
+      };
     default:
       return state;
   }
