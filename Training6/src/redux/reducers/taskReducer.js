@@ -42,7 +42,17 @@ export default function (state = initialState, action) {
         ...state,
         task: state.task.map((item, index) => {
           if (item.task === action.task.task && item.status !== "complete") {
-            return { ...item, status: "ready" };
+            // check connection
+            if (state.channelStatus === true) {
+              const status = ["error", "complete"];
+              return {
+                ...item,
+                status: status[Math.floor(Math.random() * status.length)],
+              };
+            } else {
+              // not connection
+              return { ...item, status: "ready" };
+            }
           } else if (
             item.task === action.task.task &&
             item.status === "error"
