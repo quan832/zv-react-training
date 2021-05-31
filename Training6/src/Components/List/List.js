@@ -7,14 +7,15 @@ export default function List() {
     return state.task;
   });
 
+  console.log(tasks);
   //   dispatch action
   const dispatch = useDispatch();
 
   const renderTask = () => {
-    return tasks.map((item, index) => {
+    return tasks?.map((item, index) => {
       return (
         <li key={index}>
-          {item.task}{" "}
+          {item.task} - <span style={{ color: "tomato" }}>{item.status}</span>
           {item.status === "draft" ? (
             <span
               class="icon"
@@ -25,7 +26,12 @@ export default function List() {
               <i class="fas fa-trash"></i>
             </span>
           ) : (
-            <span class="icon">
+            <span
+              class="icon"
+              onClick={() => {
+                dispatch({ type: "UPDATE_TASK", task: item });
+              }}
+            >
               <i class="fa fa-wifi"></i>
             </span>
           )}

@@ -1,4 +1,4 @@
 export const initialState = {
   task: [],
-  channelStatus: "on",
+  channelStatus: true,
 };

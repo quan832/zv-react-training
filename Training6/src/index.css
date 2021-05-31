@@ -70,10 +70,7 @@ body {
   opacity: 1;
   pointer-events: auto;
 }
-.wrapper .todoList {
-  max-height: 250px;
-  overflow-y: auto;
-}
+
 .todoList li {
   position: relative;
   list-style: none;

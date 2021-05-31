@@ -1,4 +1,5 @@
 import { eventChannel } from "@redux-saga/core";
+import { useSelector } from "react-redux";
 import {
   take,
   all,
@@ -8,7 +9,10 @@ import {
   takeLatest,
   takeEvery,
   select,
+  delay,
 } from "redux-saga/effects";
+
+import eventNetwork from "./eventChannel";
 
 export function* GetTask() {
   while (true) {
@@ -16,7 +20,23 @@ export function* GetTask() {
 
     // task
     const data = { ...action1.values };
+
     yield put({ type: "ADD_TASK_SUCCESS", data: data });
+  }
+}
+
+export function* ListenNetwork() {
+  const channel = yield call(eventNetwork);
+
+  while (true) {
+    const payload = yield take(channel);
+    console.log(payload);
+
+    // dispatch to reducer
+    yield put({
+      type: "UPDATE_TASK_WHEN_NETWORK_CHANGED",
+      network: payload.payload,
+    });
   }
 }
 
@@ -25,50 +45,17 @@ export function* UpdateTask() {
     const action1 = yield take("UPDATE_TASK");
 
     console.log(action1.task);
-    // task
-    let state = yield select((state) => {
-      return state;
+
+    yield delay(500);
+    // dispatch to reducer for update specifically
+    yield put({
+      type: "UPDATE_TASK_SUCCESS",
+      task: action1.task,
     });
-
-    console.log(state);
-    if (state.channelStatus === true) {
-      action1.task.status = "complete";
-    } else {
-      action1.task.status = "error";
-    }
-
-    yield put({ type: "UPDATE_TASK_SUCCESS", data: action1.task });
   }
 }
 
 export function* ListenToUpdate() {
   // task
-  while (true) {
-    const action1 = yield take("LISTEN_NETWORK");
-    console.log(action1.values);
-    
-    let state = yield select((state) => {
-      return state;
-    });
-
-    console.log(state);
-
-    const result = state.task.filter((item, index) => {
-      return item.status === "error";
-    });
-
-    console.log(result);
-    if (action1.values === true) {
-      yield put({ type: "UPDATE_TASK_NETWORK", data: result });
-
-      return;
-    }
-  }
+  while (true) {}
 }
-
-// function eventChannelNetwork(network) {
-//   return eventChannel((emitter) => {
-//     emitter(network);
-//     return () => {};
-//   });
-// }

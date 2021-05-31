@@ -6,12 +6,11 @@ export default function Connection() {
   // check connection
   const network = useNetwork();
 
-
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch({ type: "LISTEN_NETWORK", values: network });
-  }, [network]);
+  // useEffect(() => {
+  //   // dispatch({ type: "LISTEN_NETWORK", values: network });
+  // }, [network]);
   return (
     <div
       className="wrapper"
