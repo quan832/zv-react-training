@@ -14,7 +14,7 @@ export default function Input() {
         initialValues={{ task: "", status: "draft" }}
         onSubmit={(values) => {
           // dispatch action
-          dispatch({ type: "ADD_TASK", values });
+          dispatch({ type: "ADD_TASK_SUCCESS", values });
         }}
       >
         <Form className="inputField">

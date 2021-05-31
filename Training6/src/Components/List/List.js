@@ -16,7 +16,7 @@ export default function List() {
       return (
         <li key={index}>
           {item.task} - <span style={{ color: "tomato" }}>{item.status}</span>
-          {item.status === "draft" ? (
+          {item.status !== "complete" ? (
             <span
               class="icon"
               onClick={() => {
@@ -26,12 +26,7 @@ export default function List() {
               <i class="fas fa-trash"></i>
             </span>
           ) : (
-            <span
-              class="icon"
-              onClick={() => {
-                dispatch({ type: "UPDATE_TASK", task: item });
-              }}
-            >
+            <span class="icon">
               <i class="fa fa-wifi"></i>
             </span>
           )}

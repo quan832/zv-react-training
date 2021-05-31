@@ -9,60 +9,18 @@ export default function (state = initialState, action) {
     case "ADD_TASK_SUCCESS":
       return {
         ...state,
-        task: [...state.task, action.data],
+        task: [...state.task, action.values],
       };
 
     // when network change from off to on
     case "UPDATE_TASK_WHEN_NETWORK_CHANGED":
-      if (action.network === true) {
-        return {
-          ...state,
-          task: state.task.map((item, index) => {
-            // if status ready
-            if (item.status === "ready") {
-              const status = ["error", "complete"];
-              // random error & compelte
-              return {
-                ...item,
-                status: status[Math.floor(Math.random() * status.length)],
-                channelStatus: action.network,
-              };
-            } else {
-              // draft
-              return { ...item, channelStatus: action.network };
-            }
-          }),
-        };
-      } else {
-        return { ...state, channelStatus: action.network };
-      }
+      return { ...action.data };
 
     // change from draft to ready
     case "UPDATE_TASK_SUCCESS":
       return {
         ...state,
-        task: state.task.map((item, index) => {
-          if (item.task === action.task.task && item.status !== "complete") {
-            // check connection
-            if (state.channelStatus === true) {
-              const status = ["error", "complete"];
-              return {
-                ...item,
-                status: status[Math.floor(Math.random() * status.length)],
-              };
-            } else {
-              // not connection
-              return { ...item, status: "ready" };
-            }
-          } else if (
-            item.task === action.task.task &&
-            item.status === "error"
-          ) {
-            return { ...item, status: "ready" };
-          } else {
-            return { ...item };
-          }
-        }),
+        task: action.result,
       };
 
     default:
