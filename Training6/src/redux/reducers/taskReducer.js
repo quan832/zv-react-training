@@ -25,10 +25,11 @@ export default function (state = initialState, action) {
               return {
                 ...item,
                 status: status[Math.floor(Math.random() * status.length)],
+                channelStatus: action.network,
               };
             } else {
               // draft
-              return { ...item };
+              return { ...item, channelStatus: action.network };
             }
           }),
         };
