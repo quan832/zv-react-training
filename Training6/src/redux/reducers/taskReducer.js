@@ -14,13 +14,28 @@ export default function (state = initialState, action) {
 
     // when network change from off to on
     case "UPDATE_TASK_WHEN_NETWORK_CHANGED":
-      return { ...action.data };
+      return {
+        ...state,
+        task: state.task.map((item, index) => {
+          if (item.task === action.task.task) {
+            return action.task;
+          }
+          return item;
+        }),
+      };
 
     // change from draft to ready
     case "UPDATE_TASK_SUCCESS":
+      console.log(action.task);
       return {
         ...state,
-        task: action.result,
+        task: state.task.map((item, index) => {
+          if (item.task === action.task.task) {
+            return action.task;
+          }
+          return item;
+        }),
+        channelStatus: action.channelStatus,
       };
 
     default:
