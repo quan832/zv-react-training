@@ -1,6 +1,11 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+const NEXT_MANUALLY_STATUS = {
+  draft: "ready",
+  error: "ready",
+};
+
 export default function List() {
   // task
   const tasks = useSelector((state) => {
@@ -20,7 +25,15 @@ export default function List() {
             <span
               class="icon"
               onClick={() => {
-                dispatch({ type: "UPDATE_TASK", task: item });
+                if (!!NEXT_MANUALLY_STATUS[item.status]) {
+                  dispatch({
+                    type: "CHANGE_TASK_STATUS",
+                    payload: {
+                      task: item.task,
+                      status: NEXT_MANUALLY_STATUS[item.status],
+                    },
+                  });
+                }
               }}
             >
               <i class="fas fa-trash"></i>

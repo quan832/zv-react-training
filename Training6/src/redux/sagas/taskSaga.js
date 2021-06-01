@@ -3,10 +3,8 @@ import { useSelector } from "react-redux";
 import {
   take,
   all,
-  fork,
   put,
   call,
-  takeLatest,
   takeEvery,
   select,
   delay,
@@ -14,85 +12,79 @@ import {
 
 import eventNetwork from "./eventChannel";
 
-export function* ListenNetwork() {
+export function* listenNetwork() {
   const channel = yield call(eventNetwork);
 
   while (true) {
     const payload = yield take(channel);
-
-    const channelStatus = payload.payload;
-    // get state channel status
-    // task error
-    const task = yield select((state) => state.task);
-
-    if (channelStatus === true) {
-      for (let i = 0; i < task.length; i++) {
-        if (task[i].status === "error") {
-          yield delay(1000);
-
-          task[i].status = "ready";
-          // put reducer
-          yield put({
-            type: "UPDATE_TASK_WHEN_NETWORK_CHANGED",
-            task: task[i],
-            status: channelStatus,
-          });
-        }
-      }
-    } else {
-      yield put({
-        type: "UPDATE_TASK_WHEN_NETWORK_CHANGED",
-        task: task,
-        status: channelStatus,
-      });
-    }
+    yield put({
+      type: "CHANGE_NETWORK_STATUS",
+      payload: {
+        channelStatus: payload.payload,
+      },
+    });
   }
 }
 
-function* handleSubmit(action1) {
-  // change task to ready
-  const task = yield select((state) =>
-    state.task.map((item) => {
-      if (item.status === "draft" && action1.task.task === item.task) {
-        return { ...item, status: "ready" };
-      } else {
-        return { ...item };
-      }
-    })
-  );
+function* handleSubmit(action) {
+  try {
+    yield delay(2000);
+    const status = ["error", "complete"];
+    const nextStatus = status[Math.floor(Math.random() * status.length)];
+    yield put({
+      type: "CHANGE_TASK_STATUS",
+      payload: {
+        task: action.payload.task,
+        status: nextStatus,
+      },
+    });
+  } catch (error) {}
+}
 
-  // error & complete status
-  const status = ["error", "complete"];
-
+function* checkIfSubmitTask(action) {
   const network = yield select((state) => state.channelStatus);
-
-  // submit each task
-  if (network === true) {
-    for (let i = 0; i < task.length; i++) {
-      // if status ready & have connection -> change ready
-      if (task[i].status === "ready") {
-        task[i].status = status[Math.floor(Math.random() * status.length)];
-
-        yield delay(1000);
-
-        yield put({ type: "UPDATE_TASK_SUCCESS", task: task[i] });
-      }
-    }
-  } else {
-    for (let i = 0; i < task.length; i++) {
-      // if status ready -> keep stable ready status
-      if (task[i].status === "ready") {
-        yield delay(1000);
-
-        yield put({ type: "UPDATE_TASK_SUCCESS", task: task[i] });
-      }
+  if (action.payload.status === "ready" && network) {
+    yield put({
+      type: "CHANGE_TASK_STATUS",
+      payload: {
+        task: action.payload.task,
+        status: "submitting",
+      },
+    });
+  }
+}
+function* checkIfSubmitReadyTask(action) {
+  if (action.payload.channelStatus) {
+    const readyTasks = yield select((state) =>
+      state.task.filter(({ status }) => status === "ready")
+    );
+    for (let i = 0; i < readyTasks.length; i += 1) {
+      yield put({
+        type: "CHANGE_TASK_STATUS",
+        payload: {
+          task: readyTasks[i].task,
+          status: "submitting",
+        },
+      });
     }
   }
 }
 
 export function* taskSaga() {
   yield all([
-    takeEvery("UPDATE_TASK", handleSubmit),
-    ListenNetwork(),
+    takeEvery(
+      (action) =>
+        action.type === "CHANGE_TASK_STATUS" &&
+        action.payload.status === "ready",
+      checkIfSubmitTask
+    ),
+    takeEvery("CHANGE_NETWORK_STATUS", checkIfSubmitReadyTask),
+    takeEvery(
+      (action) =>
+        action.type === "CHANGE_TASK_STATUS" &&
+        action.payload.status === "submitting",
+      handleSubmit
+    ),
+    listenNetwork(),
   ]);
 }

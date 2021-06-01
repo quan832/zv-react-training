@@ -9,33 +9,28 @@ export default function (state = initialState, action) {
     case "ADD_TASK_SUCCESS":
       return {
         ...state,
-        task: [...state.task, action.values],
+        task: [...state.task, action.payload],
       };
 
-    // when network change from off to on
-    case "UPDATE_TASK_WHEN_NETWORK_CHANGED":
+    case "CHANGE_NETWORK_STATUS":
       return {
         ...state,
-        task: state.task.map((item, index) => {
-          if (item.task === action.task.task) {
-            return action.task;
-          }
-          return item;
-        }),
+        channelStatus: action.payload.channelStatus,
       };
-
     // change from draft to ready
-    case "UPDATE_TASK_SUCCESS":
-      console.log(action.task);
+    case "CHANGE_TASK_STATUS":
+      const { status, task } = action.payload;
       return {
         ...state,
         task: state.task.map((item, index) => {
-          if (item.task === action.task.task) {
-            return action.task;
+          if (item.task === action.payload.task) {
+            return {
+              ...item,
+              status: action.payload.status,
+            };
           }
           return item;
         }),
-        channelStatus: action.channelStatus,
       };
 
     default:

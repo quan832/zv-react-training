@@ -1,4 +1,4 @@
 export const initialState = {
   task: [],
-  channelStatus: true,
+  channelStatus: window.navigator.onLine,
 };
